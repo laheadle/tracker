@@ -1,0 +1,108 @@
+
+body {
+    font-family: Arial, sans;
+    margin-left: 20px;
+    padding: 0;
+    border: none;
+    background: white;
+    display: block;
+    font-size: 100%;
+    width: 1000px;
+}
+
+a { 
+    color: blue;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.selected {
+    font-weight: bold;
+    color: black;
+}
+
+.unselected {
+    
+}
+
+p {
+    margin-bottom: 0;
+}
+
+table {
+    border-style: none;
+}
+
+.floatRight {
+    float: right;
+}
+
+h2.title {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+
+a:hover {
+    background-color: #c0ffff;
+    text-decoration: underline;
+}
+
+a:active {
+    color: red;
+}
+
+#topMenu {
+    position: relative;
+    margin-left: 170px;
+    padding-left: 10px;
+    border-bottom: 1px solid gray;
+}
+
+#outerFrame {
+    position: relative;
+    margin-top: 20px;
+}
+
+#leftMenu {
+    position: absolute;
+}
+
+#content {
+    position: absolute;
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding-left: 10px;
+    padding-bottom: 0;
+}
+
+
+span.good {
+    color: green;
+}
+
+span.bad {
+    color: red;
+}
+
+table.gridtable {
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+
+

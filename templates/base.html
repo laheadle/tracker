@@ -1,0 +1,35 @@
+$def with (page)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
+    <link type="image/x-icon" href="/static/favicon_stinkless.ico" rel="icon">
+    <link type="text/css" href="/static/style.css" rel="stylesheet">
+    <title>$page.title</title>
+  </head>
+  <body>
+
+    <div id="topMenu">
+      <a class="$web.cals.latelyClass" href="/"> lately </a> | <a class="$web.cals.todayClass" href="/today"> today </a>
+      <span class="floatRight"> 
+      $if not web.cals.noUser():
+        <b> $web.cals.user.cnickname </b> | <a href="/logout"> log out </a>
+      $else:
+        <a href="/login"> log in </a>
+      </span>
+    </div>
+
+<div id="outerFrame">
+    <div id="leftMenu">
+      <a href="/submitActivity"> I Just Ate or Exercised </a> <br>
+      <a href="/doc?id=links"> Helpful Links </a>
+    </div>
+
+    <div id="content">
+      <h2 class="title">$page.title</h2>
+      $:page
+    </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+$def with (form, *title)
+$var title:$:(title[0] if title else 'Calorie Tracker')
+
+<script type="text/javascript">
+
+$$(document).ready(function() { $$('input').first().focus() })
+
+</script>
+
+<form method="POST" action="">
+    $:form.render()
+</form>
+
+

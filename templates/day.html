@@ -1,0 +1,32 @@
+$def with (date, changes)
+$var title:Calorie Changes on $date
+
+$ total = sum([a.tchange_camount * a.tactivity_ccalories for a in changes])
+
+<h4>  Total Change: <span class="$('good' if total <= 0 else 'bad')"> 
+    $total </span>
+</h4>
+
+<div>
+
+<table class="gridtable">
+<tr>
+<th>amount</th>
+<th>unit</th>
+<th>calories per unit</th>
+<th>total</th>
+<th></th>
+</tr>
+$for change in changes:
+  $ total = change.tchange_camount * change.tactivity_ccalories
+  <tr>
+    <td>$change.tchange_camount </td>
+    <td>$change.tactivity_cname </td>
+    <td>$change.tactivity_ccalories </td>
+    <td>$total </td>
+    <td> <a href="/deleteChange?cid=$change.tchange_cid&andthen=/day?date=$change.tchange_cdate"> [delete] </a> 
+  </tr>
+</table>
+
+
+</div>

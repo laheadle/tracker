@@ -1,0 +1,92 @@
+$def with (days, cols, sum, **args)
+$var title:Recent Net Calorie Changes
+
+$code:
+  def getChartRows(days, cols):
+    a = []
+    days_ = days[:]
+    days_.reverse()
+    avg_net = 0.0
+    avg_food = 0.0
+    avg_exercise = 0.0
+    for day in days:
+      val = cols[day]
+      avg_net += float(val['net'])
+      avg_exercise += -float(val['exercise'])
+      avg_food += float(val['food'])
+    avg_net = avg_net / len(days_) if len(days_) > 0 else 0
+    avg_food = avg_food / len(days_) if len(days_) > 0 else 0
+    avg_exercise = avg_exercise / len(days_) if len(days_) > 0 else 0
+
+    for day in days_:
+      val = cols[day]
+      day_ = str(day).split('-')[2]
+      month = str(day).split('-')[1]
+      date = '%s-%s' % (month, day_)
+      a.append("['%s', %d, %f, %d, %f, %d, %f]" % (date, val['food'], avg_food, -val['exercise'], avg_exercise, val['net'], avg_net))
+    return ','.join(a)
+
+$if days:
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Date');
+        data.addColumn('number', 'Food');
+        data.addColumn('number', 'Avg Food');
+        data.addColumn('number', 'Exercise');
+        data.addColumn('number', 'Avg Exercise');
+        data.addColumn('number', 'Net');
+        data.addColumn('number', 'Avg Net');
+        data.addRows([
+          $:getChartRows(days, cols)
+        ]);
+
+        var options = {
+          width: 800, height: 240,
+          title: 'Daily Change Amounts'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+  </script>
+
+$ pounds = round(float(sum) / 3600.0, 1)
+$ quality = 'good' if sum <= 0 else 'bad'
+
+<style>
+#sumt td.field { font-weight: bold; }
+#sumt td {  padding: 8px; }
+#sumt { margin: 0 auto }
+#outersums { border: 1px solid gray; margin: 10px 0; }
+</style>
+
+<div id="outersums">
+<table id="sumt"> 
+<thead>
+<tr>
+  <td> # days </td>
+  <td> calorie change</td>
+  <td> weight change (lb)</td>
+  <td> avg food</td>
+  <td>  avg exercise</td>
+  <td>avg net </td>
+</tr>
+</thead>
+<tr>
+<td class="field">$len(days)</td>
+<td class="field"><span class="$quality"> $sum </span></td>
+<td class="field"> <span class="$quality"> $pounds </span> </td>
+<td class="field"> $args['avg_food']</td>
+<td class="field">  $args['avg_exercise'] </td>
+<td class="field">  $args['avg_net']</td></tr>
+</table>
+</div>
+
+<div id="chart_div"></div>
+
+$for day in days:
+  <p> $day net change: <a href="/day?date=$day">  $cols[day]['net'] calories  </a> </p>

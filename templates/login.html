@@ -1,0 +1,14 @@
+$def with (login)
+$var title:Login
+
+<script type="text/javascript">
+
+$$(document).ready(function() { $$('#nickname').focus() })
+
+</script>
+
+<form method="POST" action="/login">
+    $:login.render()
+</form>
+
+
